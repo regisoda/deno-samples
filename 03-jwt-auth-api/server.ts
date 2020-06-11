@@ -1,19 +1,9 @@
-import "https://deno.land/x/dotenv/load.ts";
-import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-import { login, auth, guest } from './routers.ts'
-import authMiddleware from './authMiddleware.ts';
+import 'https://deno.land/x/dotenv/load.ts';
 
-const router = new Router();
+import { Application } from 'https://deno.land/x/oak/mod.ts';
 
-router.get("/", (ctx) => {
-    ctx.response.body = "Hello Deno!!!";
-});
+import router from './routers.ts';
 
-router
-    .post('/login', login)
-    .get('/guest', guest)
-    .get('/auth', authMiddleware, auth) // Registering authMiddleware for /auth endpoint only
-    ;
 
 const app = new Application();
 

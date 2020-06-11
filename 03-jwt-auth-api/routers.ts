@@ -1,12 +1,16 @@
-import { Context } from "https://deno.land/x/oak/mod.ts";
-import users from "./users.ts";
-import { makeJwt, setExpiration, Jose, Payload } from "https://deno.land/x/djwt/create.ts"
-import key from './key.ts'
+import { Jose, makeJwt, Payload, setExpiration } from 'https://deno.land/x/djwt/create.ts';
+import { Context, Router } from 'https://deno.land/x/oak/mod.ts';
+
+import authMiddleware from './authMiddleware.ts';
+import key from './key.ts';
+import users from './users.ts';
 
 const header: Jose = {
     alg: "HS256",
     typ: "JWT",
 }
+
+const router = new Router();
 
 export const login = async (ctx: Context) => {
     const { value } = await ctx.request.body();
@@ -49,3 +53,15 @@ export const guest = (ctx: Context) => {
 export const auth = (ctx: Context) => {
     ctx.response.body = 'Auth success';
 }
+
+router.get("/", (ctx: Context) => {
+    ctx.response.body = "JWT Auth API";
+});
+
+router
+    .post('/login', login)
+    .get('/guest', guest)
+    .get('/auth', authMiddleware, auth) // Registering authMiddleware for /auth endpoint only
+    ;
+
+export default router;
