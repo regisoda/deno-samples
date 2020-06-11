@@ -20,7 +20,6 @@ const authMiddleware = async (ctx: Context, next: any) => {
         return;
     }
 
-
     ctx.response.status = 401;
     ctx.response.body = { message: 'Invalid jwt token' };
 }
