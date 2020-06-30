@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.55.0/http/server.ts";
-const s = serve({ port: 8000 });
+const s = serve({ port: 11993 });
 console.log('Welcome to Deno 🦕')
 console.log("http://localhost:8000/");
 for await (const req of s) {
