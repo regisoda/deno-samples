@@ -9,6 +9,8 @@ docker build -t deno-app .
 
 ### Running
 
+docker run --name app -p 6667:6667 -d deno-app
+
 docker-compose up -d --build
 
 curl localhost:6667

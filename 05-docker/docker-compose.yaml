@@ -2,9 +2,9 @@ version: "3.7"
 
 services:
   deno:
-    image: "deno-docker:0.0.1"
+    image: "deno-app"
     build: .
-    container_name: deno_app
+    container_name: app
     ports:
       - "6667:6667"
     networks: 
